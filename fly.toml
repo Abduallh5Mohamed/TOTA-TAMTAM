@@ -1,0 +1,23 @@
+app = "tota-tamtam"
+primary_region = "ams"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  NODE_ENV = "production"
+  PORT = "8080"
+  VITE_API_URL = "/api"
+  WEB_DIST_DIR = "/app/apps/web/dist"
+  UPLOAD_DIR = "/app/apps/api/uploads"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = "stop"
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ["app"]
+
+[deploy]
+  release_command = "npm run db:deploy"

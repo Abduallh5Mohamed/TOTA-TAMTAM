@@ -8,8 +8,8 @@
   ],
   "scripts": {
     "dev": "npm run build -w @tota-tamtam/contracts && node node_modules/concurrently/dist/bin/concurrently.js -n api,web -c magenta,cyan \"npm run dev -w @tota-tamtam/api\" \"npm run dev -w @tota-tamtam/web\"",
-    "build": "npm run build -w @tota-tamtam/contracts && npm run build -w @tota-tamtam/api && npm run build -w @tota-tamtam/web",
-    "test": "npm run build -w @tota-tamtam/contracts && npm run test -w @tota-tamtam/api && npm run test -w @tota-tamtam/web",
+    "build": "npm run db:generate && npm run build -w @tota-tamtam/contracts && npm run build -w @tota-tamtam/api && npm run build -w @tota-tamtam/web",
+    "test": "npm run db:generate && npm run build -w @tota-tamtam/contracts && npm run test -w @tota-tamtam/api && npm run test -w @tota-tamtam/web",
     "lint": "npm run lint -w @tota-tamtam/api && npm run lint -w @tota-tamtam/web",
     "db:generate": "npm run db:generate -w @tota-tamtam/api",
     "db:migrate": "npm run db:migrate -w @tota-tamtam/api",

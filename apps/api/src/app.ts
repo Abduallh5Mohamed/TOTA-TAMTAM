@@ -5,6 +5,8 @@ import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import rateLimit from 'express-rate-limit';
+import fs from 'node:fs';
+import path from 'node:path';
 import { publicRoutes } from './routes/public';
 import { adminRoutes } from './routes/admin';
 import { errorHandler } from './middleware/errorHandler';
@@ -52,6 +54,14 @@ app.use('/api/admin', adminRoutes);
 app.get('/health', (_req, res) => {
   res.json({ status: 'ok', service: 'TOTA & TAMTAM API', timestamp: new Date().toISOString() });
 });
+
+const webDistDir = path.resolve(process.env.WEB_DIST_DIR || path.join(__dirname, '..', '..', '..', 'web', 'dist'));
+if (process.env.NODE_ENV === 'production' && fs.existsSync(webDistDir)) {
+  app.use(express.static(webDistDir, { immutable: true, maxAge: '7d' }));
+  app.get('*', (_req, res) => {
+    res.sendFile(path.join(webDistDir, 'index.html'));
+  });
+}
 
 app.use((_req, res) => {
   res.status(404).json({ error: 'المسار المطلوب غير موجود' });

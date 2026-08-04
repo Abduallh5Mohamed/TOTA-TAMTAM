@@ -1,0 +1,12 @@
+.git
+node_modules
+apps/*/node_modules
+packages/*/node_modules
+apps/api/dist
+apps/web/dist
+packages/contracts/dist
+coverage
+.env
+apps/api/.env
+npm-debug.log*
+.DS_Store
