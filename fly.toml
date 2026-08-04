@@ -1,5 +1,5 @@
 app = "tota-tamtam"
-primary_region = "ams"
+primary_region = "cdg"
 
 [build]
   dockerfile = "Dockerfile"
