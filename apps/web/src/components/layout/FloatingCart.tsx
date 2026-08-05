@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useCartStore } from '../../store/cartStore';
+import { money } from '../../lib/pricing';
 
 export default function FloatingCart() {
   const count = useCartStore((state) => state.getItemCount());
@@ -12,7 +13,7 @@ export default function FloatingCart() {
 
   return (
     <Link to="/cart" className="md:hidden fixed left-4 bottom-4 z-30 bg-secondary text-white shadow-2xl rounded-full px-5 py-3 font-bold">
-      السلة · {count} · {total.toFixed(2)} ج.م
+      السلة · {count} · {money(total)}
     </Link>
   );
 }

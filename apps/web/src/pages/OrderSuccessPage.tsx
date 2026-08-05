@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useToastStore } from '../store/toastStore';
 import type { Order } from '../types';
+import { money } from '../lib/pricing';
 
 export default function OrderSuccessPage() {
   const { orderNumber = '' } = useParams();
@@ -138,9 +139,9 @@ export default function OrderSuccessPage() {
 
         {order && (
           <div className="order-total-summary" aria-label="ملخص الطلب">
-            <div><span>المنتجات</span><strong>{Number(order.subtotal).toFixed(2)} ج.م</strong></div>
-            <div><span>التوصيل</span><strong>{Number(order.deliveryFee).toFixed(2)} ج.م</strong></div>
-            <div><span>الإجمالي</span><strong>{Number(order.total).toFixed(2)} ج.م</strong></div>
+            <div><span>المنتجات</span><strong>{money(Number(order.subtotal))}</strong></div>
+            <div><span>التوصيل</span><strong>{money(Number(order.deliveryFee))}</strong></div>
+            <div><span>الإجمالي</span><strong>{money(Number(order.total))}</strong></div>
           </div>
         )}
 

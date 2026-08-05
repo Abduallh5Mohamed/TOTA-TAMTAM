@@ -17,6 +17,7 @@ const port = Number(process.env.PORT || 4000);
 const webOrigin = process.env.WEB_ORIGIN || process.env.CORS_ORIGIN || 'http://localhost:5173';
 
 app.disable('x-powered-by');
+app.set('trust proxy', 1);
 app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } }));
 app.use(cors({ origin: webOrigin, credentials: true }));
 app.use(express.json({ limit: '1mb' }));
@@ -58,7 +59,7 @@ app.get('/health', (_req, res) => {
 const webDistDir = path.resolve(process.env.WEB_DIST_DIR || path.join(__dirname, '..', '..', '..', 'web', 'dist'));
 if (process.env.NODE_ENV === 'production' && fs.existsSync(webDistDir)) {
   app.use(express.static(webDistDir, { immutable: true, maxAge: '7d' }));
-  app.get('*', (_req, res) => {
+  app.get(/.*/, (_req, res) => {
     res.sendFile(path.join(webDistDir, 'index.html'));
   });
 }

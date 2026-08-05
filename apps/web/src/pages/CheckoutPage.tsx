@@ -9,6 +9,7 @@ import { createOrder, getDeliveryZones, getPublicSettings } from '../lib/api';
 import { useCartStore } from '../store/cartStore';
 import { useToastStore } from '../store/toastStore';
 import type { DeliveryZone, Order, StoreSettings } from '../types';
+import { money } from '../lib/pricing';
 
 const checkoutSchema = createOrderSchema.omit({ clientRequestId: true, items: true });
 type CheckoutForm = z.infer<typeof checkoutSchema>;
@@ -104,7 +105,7 @@ export default function CheckoutPage() {
 
       {isClosed && (
         <div className="checkout-closed-banner mb-6">
-          <span aria-hidden="true">⏸</span>
+          <span aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 6v12M16 6v12" /></svg></span>
           <div>
             <strong>استقبال الطلبات متوقف مؤقتًا</strong>
             <p>{pauseMessage}</p>
@@ -123,7 +124,7 @@ export default function CheckoutPage() {
               <span className="text-sm font-bold">منطقة التوصيل *</span>
               <select id="deliveryZoneId" className="form-input mt-2" aria-invalid={Boolean(errors.deliveryZoneId)} {...register('deliveryZoneId')}>
                 <option value="">-- اختاري المنطقة --</option>
-                {zones.map((item) => <option key={item.id} value={item.id}>{item.name} · {Number(item.fee).toFixed(2)} ج.م</option>)}
+                {zones.map((item) => <option key={item.id} value={item.id}>{item.name} · {money(Number(item.fee))}</option>)}
               </select>
               {errors.deliveryZoneId && <span className="text-error text-xs">{errors.deliveryZoneId.message}</span>}
             </label>
@@ -145,7 +146,7 @@ export default function CheckoutPage() {
             {errors.deliveryNotes && <span className="text-error text-xs">{errors.deliveryNotes.message}</span>}
           </label>
 
-          <div className="rounded-xl bg-success/10 border border-success/20 text-success p-4 font-bold">💵 الدفع نقدًا عند الاستلام</div>
+          <div className="checkout-payment-note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16v10H4zM7 12h.01M17 12h.01M12 9.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5Z" /></svg><span>الدفع نقدًا عند الاستلام</span></div>
         </div>
 
         <aside className="card p-6 lg:sticky lg:top-24">
@@ -154,18 +155,18 @@ export default function CheckoutPage() {
             {items.map((item) => (
               <div key={item.id} className="flex justify-between gap-3 text-sm">
                 <span>{item.productName} × {item.quantity}<small className="block text-text-secondary">{item.variant.color} · {item.variant.size}</small></span>
-                <strong>{(item.unitPrice * item.quantity).toFixed(2)}</strong>
+                <strong>{money(item.unitPrice * item.quantity)}</strong>
               </div>
             ))}
           </div>
 
           <div className="border-t border-border mt-5 pt-4 space-y-3 text-sm">
-            <div className="flex justify-between"><span>المنتجات</span><strong>{subtotal.toFixed(2)} ج.م</strong></div>
-            <div className="flex justify-between"><span>التوصيل</span><strong>{zone ? `${deliveryFee.toFixed(2)} ج.م` : '—'}</strong></div>
-            <div className="flex justify-between text-lg border-t border-border pt-4"><span className="font-black">الإجمالي</span><strong className="text-primary">{(subtotal + deliveryFee).toFixed(2)} ج.م</strong></div>
+            <div className="flex justify-between"><span>المنتجات</span><strong>{money(subtotal)}</strong></div>
+            <div className="flex justify-between"><span>التوصيل</span><strong>{zone ? money(deliveryFee) : '—'}</strong></div>
+            <div className="flex justify-between text-lg border-t border-border pt-4"><span className="font-black">الإجمالي</span><strong className="text-primary">{money(subtotal + deliveryFee)}</strong></div>
           </div>
 
-          {zone && subtotal < minimumOrder && <p className="bg-warning/10 text-warning rounded-xl p-3 text-xs font-bold mt-4">الحد الأدنى لمنطقة {zone.name}: {minimumOrder.toFixed(2)} ج.م</p>}
+          {zone && subtotal < minimumOrder && <p className="bg-warning/10 text-warning rounded-xl p-3 text-xs font-bold mt-4">الحد الأدنى لمنطقة {zone.name}: {money(minimumOrder)}</p>}
           {isClosed && <p className="bg-error/10 text-error rounded-xl p-3 text-xs font-bold mt-4">{pauseMessage}</p>}
 
           <button

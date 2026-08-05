@@ -25,8 +25,10 @@ export default function Header() {
   }, []);
 
   return <header className="site-header">
+    <a className="skip-link" href="#main-content">انتقلي للمحتوى</a>
+    <div className="announcement-bar" aria-label="مزايا المتجر"><div className="announcement-track"><span>توصيل لكل المحافظات</span><i aria-hidden="true">✦</i><span>الدفع عند الاستلام</span><i aria-hidden="true">✦</i><span>اختيارات جديدة كل أسبوع</span><i aria-hidden="true">✦</i><span>توصيل لكل المحافظات</span><i aria-hidden="true">✦</i><span>الدفع عند الاستلام</span></div></div>
     <div className="page-shell header-inner">
-      <Link to="/" className="brand" aria-label="TOTA & TAMTAM - الرئيسية"><span>TOTA <b>&</b> TAMTAM</span><small>للنساء والأطفال</small></Link>
+      <Link to="/" className="brand" aria-label="TOTA & TAMTAM - الرئيسية"><span>TOTA <b>&</b> TAMTAM</span><small>ستايل مختلف للنساء والأطفال</small></Link>
       <nav className="desktop-navigation" aria-label="التنقل الرئيسي">{links.map((link) => <NavLink key={link.to} to={link.to} end={link.end} className={({ isActive }) => `header-nav-link ${isActive ? 'is-active' : ''}`}>{link.label}</NavLink>)}</nav>
       <div className="header-actions">
         <Link to="/cart" className="header-cart" aria-label={`السلة، ${count} منتجات`}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 4.5h2l1.5 10h10.7l1.7-7.2H6.2M9 19a1.25 1.25 0 1 0 0 2.5A1.25 1.25 0 0 0 9 19Zm8 0a1.25 1.25 0 1 0 0 2.5A1.25 1.25 0 0 0 17 19Z" /></svg><span className="header-cart-label">السلة</span>{count > 0 && <span className="header-cart-count" aria-live="polite">{count}</span>}</Link>

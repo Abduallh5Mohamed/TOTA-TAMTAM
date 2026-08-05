@@ -3,7 +3,12 @@ import type { Product, ProductSummary, ProductVariant, ProductVariantSummary } f
 type ProductWithPrice = Product | ProductSummary;
 type VariantWithPrice = ProductVariant | ProductVariantSummary;
 
-export const money = (value: number) => `${value.toFixed(2)} ج.م`;
+const egyptianNumber = new Intl.NumberFormat('ar-EG', {
+  minimumFractionDigits: 0,
+  maximumFractionDigits: 2
+});
+
+export const money = (value: number) => `${egyptianNumber.format(value)} جنيه مصري`;
 
 export const getVariantSalePrice = (product: ProductWithPrice, variant?: VariantWithPrice | null) =>
   Number(variant?.price ?? product.basePrice);

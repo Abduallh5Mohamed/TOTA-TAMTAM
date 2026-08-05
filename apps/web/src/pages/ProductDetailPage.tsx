@@ -87,7 +87,7 @@ export default function ProductDetailPage() {
           {image ? (
             <img src={assetUrl(image)} alt={product.name} className="w-full h-full object-contain" width={600} height={750} fetchPriority="high" />
           ) : (
-            <div className="w-full h-full grid place-items-center text-7xl" aria-hidden="true">👗</div>
+            <div className="product-detail-placeholder w-full h-full grid place-items-center"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 7.5 10 5l2 2 2-2 3.5 2.5-2 3V20h-7v-9.5l-2-3Z" /></svg><span>الصورة قيد التجهيز</span></div>
           )}
           {hasDiscount && !allOutOfStock && <span className="absolute top-4 left-4 rounded-md bg-secondary px-4 py-2 text-sm font-black text-white">عرض خاص</span>}
           {allOutOfStock && <span className="absolute top-4 right-4 rounded-md bg-stone-900 px-4 py-2 text-sm font-black text-white">نفدت الكمية</span>}
