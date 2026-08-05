@@ -4,7 +4,7 @@ import ProductCard from '../components/ProductCard';
 import { assetUrl, getCategories, getProducts, getPublicSettings } from '../lib/api';
 import type { Category, ProductSummary, StoreSettings } from '../types';
 
-const hero = '/tota-tamtam-hero.jpg';
+const hero = 'https://images.unsplash.com/photo-1596870230751-ebdfce98ec42?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=88';
 
 export default function HomePage() {
   const { data: categories = [] } = useQuery<Category[]>({ queryKey: ['categories'], queryFn: getCategories });
@@ -23,7 +23,7 @@ export default function HomePage() {
         </div>
         <div className="hero-visual" aria-label="إطلالة من مجموعة TOTA & TAMTAM">
           <div className="hero-blob" aria-hidden="true" />
-          <div className="hero-frame"><img src={hero} alt="إطلالة أنيقة من مجموعة توتا وتمتام" width={1672} height={941} srcSet="/tota-tamtam-hero-768.jpg 768w, /tota-tamtam-hero-1200.jpg 1200w, /tota-tamtam-hero.jpg 1672w" sizes="(max-width: 900px) 90vw, 46vw" fetchPriority="high" /><span className="hero-price-note">أناقة من غير تكلّف</span></div>
+          <div className="hero-frame"><img src={hero} alt="طفل بإطلالة عصرية من مجموعة توتا وتمتام" width={800} height={1000} fetchPriority="high" referrerPolicy="no-referrer" /><span className="hero-price-note">أناقة من غير تكلّف</span></div>
           <div className="hero-sticker" aria-hidden="true"><span>ستايل</span><strong>HIGH</strong><span>جديد</span></div>
           <svg className="hero-star" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 0 61 38 100 50 61 62 50 100 39 62 0 50 39 38Z" /></svg>
         </div>
