@@ -4,7 +4,6 @@ import Header from './Header';
 import Footer from './Footer';
 import FloatingCart from './FloatingCart';
 import { ToastContainer } from '../ui/Toast';
-import { RouteLoader } from '../ui/StoreLoader';
 
 export const Layout: React.FC = () => {
   return (
@@ -16,7 +15,6 @@ export const Layout: React.FC = () => {
       <Footer />
       <FloatingCart />
       <ToastContainer />
-      <RouteLoader />
     </div>
   );
 };

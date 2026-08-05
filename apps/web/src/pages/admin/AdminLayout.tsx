@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { adminLogout, getAdminMe } from '../../lib/api';
-import { RouteLoader } from '../../components/ui/StoreLoader';
 
 const links = [
   ['نظرة عامة', '/admin/dashboard', '01', 'ملخص الطلبات والمبيعات'],
@@ -21,7 +20,7 @@ export default function AdminLayout() {
   const logout = useMutation({ mutationFn: adminLogout, onSettled: () => navigate('/admin/login', { replace: true }) });
   useEffect(() => { if (isError) navigate('/admin/login', { replace: true }); }, [isError, navigate]);
   useEffect(() => { setOpen(false); }, [location.pathname]);
-  if (isLoading) return <div className="admin-loading">جاري تجهيز لوحة الإدارة...</div>;
+  if (isLoading) return null;
   if (!data?.user) return null;
   return <div className="admin-layout">
     <header className="admin-mobile-header"><div><strong>TOTA & TAMTAM</strong><span>إدارة المتجر</span></div><button type="button" onClick={() => setOpen((value) => !value)} aria-expanded={open} aria-label="فتح قائمة الإدارة"><span /><span /></button></header>
@@ -32,6 +31,5 @@ export default function AdminLayout() {
     </aside>
     {open && <button type="button" className="admin-backdrop" aria-label="إغلاق القائمة" onClick={() => setOpen(false)} />}
     <main className="admin-main"><Outlet /></main>
-    <RouteLoader />
   </div>;
 }
