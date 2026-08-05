@@ -19,16 +19,18 @@ export default function AdminLoginPage() {
   const error = (mutation.error as { response?: { data?: { error?: string } } } | null)?.response?.data?.error;
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-pink-100 via-background to-amber-50 grid place-items-center px-4">
-      <form onSubmit={(event) => { event.preventDefault(); mutation.mutate(); }} className="card w-full max-w-md p-7 sm:p-9">
+    <main className="admin-login-page">
+      <div className="admin-login-art" aria-hidden="true"><span>ADMIN</span><b>T&T</b><i /></div>
+      <form onSubmit={(event) => { event.preventDefault(); mutation.mutate(); }} className="admin-login-card">
         <div className="text-center">
-          <h1 className="text-2xl font-black text-primary">TOTA & TAMTAM</h1>
+          <span className="admin-login-kicker">لوحة التحكم</span>
+          <h1>TOTA <b>&</b> TAMTAM</h1>
           <p className="text-text-secondary mt-1">تسجيل دخول لوحة الإدارة</p>
         </div>
         <label className="block mt-7"><span className="text-sm font-bold">البريد الإلكتروني</span><input className="form-input mt-2" dir="ltr" type="email" value={email} onChange={(event) => setEmail(event.target.value)} required /></label>
         <label className="block mt-4"><span className="text-sm font-bold">كلمة المرور</span><input className="form-input mt-2" dir="ltr" type="password" minLength={8} value={password} onChange={(event) => setPassword(event.target.value)} required /></label>
         {mutation.isError && <p className="text-error text-sm font-bold mt-4">{error || 'تعذر تسجيل الدخول'}</p>}
-        <button className="btn-primary w-full mt-6" disabled={mutation.isPending}>{mutation.isPending ? 'جاري الدخول...' : 'تسجيل الدخول'}</button>
+        <button className="btn-primary w-full mt-6" disabled={mutation.isPending}>{mutation.isPending ? 'جاري الدخول...' : 'دخول لوحة الإدارة ←'}</button>
       </form>
     </main>
   );
